@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Unwinding Path — abcjs</title>
+  <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic.min.js"></script>
+  <style>
+    :root { --bg:#f7f4ef; --ink:#1c1a17; --muted:#6b645a; --card:#fffdf9; --line:#ddd4c6; --accent:#8b4513; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:"Segoe UI",system-ui,sans-serif; background:var(--bg); color:var(--ink); line-height:1.45; }
+    header { padding:1.25rem 1.5rem .75rem; border-bottom:1px solid var(--line); background:var(--card); position:sticky; top:0; z-index:2; }
+    h1 { margin:0 0 .25rem; font-size:1.35rem; }
+    .meta { color:var(--muted); font-size:.92rem; }
+    .toolbar { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.75rem; align-items:center; }
+    button, a.btn { appearance:none; border:1px solid var(--line); background:white; color:var(--ink); border-radius:8px; padding:.45rem .8rem; font:inherit; cursor:pointer; text-decoration:none; }
+    button.primary { background:var(--accent); border-color:var(--accent); color:white; }
+    main { padding:1rem 1rem 3rem; max-width:1100px; margin:0 auto; }
+    #paper { background:white; border:1px solid var(--line); border-radius:12px; padding:1rem; overflow-x:auto; }
+    #warnings { color:#8a2b2b; font-size:.85rem; margin:.75rem 0; white-space:pre-wrap; }
+    details { margin-top:1rem; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:.75rem 1rem; }
+    textarea { width:100%; min-height:220px; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:12px; border:1px solid var(--line); border-radius:8px; padding:.75rem; }
+    .note { margin-top:1rem; color:var(--muted); font-size:.9rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>The Unwinding Path</h1>
+    <div class="meta">Versión abcjs · Partitura + tablatura de guitarra · Eb mayor · ♩ = 100</div>
+    <div class="toolbar">
+      <button class="primary" id="btn-play" type="button">▶ Reproducir</button>
+      <button id="btn-stop" type="button">■ Detener</button>
+      <button id="btn-rerender" type="button">Re-render</button>
+      <a class="btn" id="btn-download-abc" download="The_Unwinding_Path.abc" href="#">Descargar .abc</a>
+    </div>
+  </header>
+  <main>
+    <div id="warnings"></div>
+    <div id="paper"></div>
+    <p class="note">
+      Transcripción automática desde audio generado por IA. Puede haber notas fantasmas u octavas inconsistentes.
+      Los Eb2 fuera de rango se reescribieron una octava arriba. Forma: Intro → A → A′ → B → A′′ → Coda.
+      Abre este HTML en el navegador (requiere internet para cargar abcjs desde CDN).
+    </p>
+    <details open>
+      <summary>Código ABC (editable)</summary>
+      <p class="meta">Si editas el ABC, pulsa <strong>Re-render</strong> para actualizar la vista.</p>
+      <textarea id="abc-source" spellcheck="false"></textarea>
+    </details>
+  </main>
+  <script>
+    const initialAbc = "X:1\nT:The Unwinding Path\nC:Transcripci\u00f3n por ingenier\u00eda inversa (audio generado por IA)\nZ:abcjs \u00b7 Eb mayor \u00b7 q=100 \u00b7 Fingerstyle \u00b7 Afinaci\u00f3n est\u00e1ndar\nM:4/4\nL:1/16\nQ:1/4=100\nK:Eb\n%%score (1)\nV:1 clef=treble-8 name=\"Guitarra\" snm=\"Guit.\"\n\n%%text Intro\nP:Intro\ne'16 |\n[e'b']16 |\n[G,bb']16 |\n[G,b]16 |\n\n\n%%text A \u2014 Tema\nP:A \u2014 Tema\n\"Cm7\"E e z2 [B,B] z G z z [Bd] e [EG] f C [c_g] z |  %1\n\"Cm7\"[EBgc'] z [Geb] [CBg] z =a [Cg] z z [Dd'] z d A z c' z |  %2\n\"D\"=a z _g z d z =A z z _G z2 [dd'] z z2 |  %3\nz \"Gm\"[G,Gg] z2 D z =B z [d_g] z [G,g] z [D=a] b B z |  %4\n\n\"Gm7\"[dd'] z c g f' z z f e' G, [Cd'] [Ge'] z G z [Bb] |  %5\nz \"Eb\"g z [eb] z G z E [Ggb] z E z G z z c' |  %6\nz2 z \"Abadd9\"A, [Eb] z z2 [ce=a] z [eb] z [A,fc'] z [Fa] [c'e'] |  %7\nz \"Bb7\"d z [fd'] B, [Fdac'] z2 b a z [Eg] z G z B |  %8\n\nz \"Cm7\"D z f A [Cce] z E b G z2 B z z g |  %9\nz \"F7\"f z2 [F,Fe] z [A,C] z [F=A] z [c_dc'] c d z [=A,Ce] z |  %10\n\"Fm7\"f z [c=ac'] f F [CAe] e' z z [CAc] z B, d' F z2 |  %11\n\"Bb7\"A z z B z d z f z4 d' z z2 |  %12\n\n\n%%text A' \u2014 Variaci\u00f3n\nP:A' \u2014 Variaci\u00f3n\nz4 z2 \"Bbsus4\"d' z z2 E e' z B, z2 |  %13\n\"Cm7\"[EG] z [EB] G f' g C [Ecg'] z2 [eb] b' G, B g =a' |  %14\n\"G7\"[gg'] z [_G,F] z d' D z F z =A z f' z2 z [G,G] |  %15\nz \"Csus2\"D z F z =A e' z z d' d C e' c z G |  %16\n\nz2 z \"Ab7\"e z [cf'] A, _g' [=A,g'] [_G_g'] z [Aaa'] z [Dd] c z |  %17\n\"Gm\"=A c z [G,G] [gg'] z [Db'] z B z d z g z [Gd'] z |  %18\n\"Ebmaj7\"b z z D z [Dd] G, z [GBb] z z2 A, b' z [Ee] |  %19\nz \"Fm7\"c =a' z [eb'] z [A,f] z [Fa] z d z f z c a |  %20\n\n\"Ebmaj7\"b' d =a' z [Eeg'] z z G B z [Ddd'f'] z e' [A=A] [Cbg'] c |  %21\n\"Ebadd9\"E z G g z B b z [ee'] z c' z [F,e'] [Ff'] c z |  %22\nz \"F7\"=A a' c [ff'] z z [Ccc'] z [F=A=a] z f z [ce] z A |  %23\nz \"Bbadd9\"[F,Ff] z B, [Bbd'] z F z [Bb] z [Fd] z c' z z [eb] |  %24\n\n\n%%text B \u2014 Desarrollo\nP:B \u2014 Desarrollo\nz \"Bb7\"d z A z F z2 z C z B, z A z E |  %25\n\"Cm7\"[EGBe] z z B, z G z B z2 f [C_g] c z E g |  %26\n\"Ebmaj7\"[Gb] z [Be] z =a z [Eg] z D d' z =A c' [db] =a z |  %27\nz \"Gsus4\"f z d z =A z _G e z z d [Ac] z [G,Gc] g |  %28\n\n\"Bbadd9\"f D z c z d f g e [Da] c z [Bbc'] [dd'] z2 |  %29\n\"Cm7\"[cgf'] z [ae'] [fg] [fd'] G C e' g G z2 B z e' z |  %30\n\"Cm7\"e z [CBb] z z4 E z z B z [Cc'] z2 |  %31\n\"Abadd9\"[A,b] z z E z [ca] z2 [eb] z [A,fc'] z [Fa] e' A d |  %32\n\nz \"Bb7\"[fd'] B, [ac'] z b z2 a E g G z B g D |  %33\nz \"Abmaj7\"=A [df] C [A,e] E g z G z z B z e z2 |  %34\nz2 \"Bbadd9\"[A,a] z C F, z F z [=Add'] z [F,cc'] z [B,B] c F |  %35\nz2 \"Abadd9\"B z z d z2 A z E z z2 z [cc'] |  %36\n\n\n%%text A'' \u2014 Retorno\nP:A'' \u2014 Retorno\n\"Cm7\"_d c B z G z z2 [Eg] z [Bg] z B, z z2 |  %37\nz8 z2 z \"Eb\"b' z2 z E |  %38\nz \"Cm7\"B, z [EG] B E c [Ee] z g z e' b E z [_da'] |  %39\nz \"F7\"B z E z A c d B f =a z c' [Ff'] E =a |  %40\n\n\"Bb7\"B z z d [Ac] z F, F D A c D d [A,eb'] a z |  %41\n\"Bb7\"[Adc'] d' z B, z F A B d [fb] a z [bf'] z [Bad'f'] z |  %42\nz \"Ebadd9\"d' z B z [Ffb] z E E G B c z [Ee] [Gg] b |  %43\nz \"Eb7\"e' z [Ec_d'] b z g z e z _d E z E [GBg] z |  %44\n\n\"Cm7\"_d e z [Bg] b z z e' c' c [eb] z z [eb'] z [_dc'] |  %45\n\n%%text Coda\nP:Coda\nz2 \"Fm7\"C z _G =A c e z [Ef] e' z c' [Aa] z [Ef] |  %46\nz \"Abadd9\"[Fe] [CEcc'] z A, z [Cca] z F [Ae] [ca] [A,eb] [c'e'] z [fa'] [Ae'b'] |  %47\nz \"Bb7\"[B,Bb] F A B z d f [Aa] z z [d'b'] z b z a |  %48\n\nz \"Ebadd9\"[ff'] z [Bd] z [Eg] [Ef] z z4 B z [ee'] z |  %49\n\"Eb\"B g z2 [eb] z z g' z2 z e' z2 z b |  %50\nz4 \"Bbsus4\"g z z2 e z z2 B z z2 |  %51\n|]\n";
+    const source = document.getElementById('abc-source');
+    const warningsEl = document.getElementById('warnings');
+    source.value = initialAbc;
+    let synthControl = null;
+    let visualObj = null;
+
+    function render() {
+      warningsEl.textContent = '';
+      document.getElementById('paper').innerHTML = '';
+      const abc = source.value;
+      visualObj = ABCJS.renderAbc('paper', abc, {
+        responsive: 'resize',
+        add_classes: true,
+        tablature: [{
+          instrument: 'guitar',
+          label: 'Tab (%T)',
+          tuning: ['E,', 'A,', 'D', 'G', 'B', 'e'],
+          highestNote: "a'"
+        }]
+      });
+      if (visualObj && visualObj[0] && visualObj[0].warnings && visualObj[0].warnings.length) {
+        warningsEl.textContent = visualObj[0].warnings.join('\n');
+      }
+      const blob = new Blob([abc], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.getElementById('btn-download-abc');
+      if (a.href && a.href.startsWith('blob:')) URL.revokeObjectURL(a.href);
+      a.href = url;
+    }
+
+    async function play() {
+      if (!visualObj || !visualObj[0]) render();
+      if (!ABCJS.synth || !ABCJS.synth.CreateSynth) {
+        warningsEl.textContent = 'La síntesis MIDI no está en abcjs-basic. La partitura/tab sí se renderiza.';
+        return;
+      }
+      const synth = new ABCJS.synth.CreateSynth();
+      await synth.init({ visualObj: visualObj[0] });
+      await synth.prime();
+      synth.start();
+      synthControl = synth;
+    }
+    function stop() { if (synthControl && synthControl.stop) synthControl.stop(); }
+    document.getElementById('btn-rerender').addEventListener('click', () => { stop(); render(); });
+    document.getElementById('btn-play').addEventListener('click', () => { play().catch(err => { warningsEl.textContent = String(err); }); });
+    document.getElementById('btn-stop').addEventListener('click', stop);
+    render();
+  </script>
+</body>
+</html>
